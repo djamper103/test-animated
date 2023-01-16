@@ -6,4 +6,6 @@ export interface PuzzleRenderArray {
 export interface PositionType {
   x: number;
   y: number;
+  id: number;
+  url: string;
 }
