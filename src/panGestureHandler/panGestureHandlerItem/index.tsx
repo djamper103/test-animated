@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {
   PanGestureHandler,
@@ -23,6 +23,14 @@ export const PanHandlerItem: FC<PanHandlerItem> = ({data}) => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
+  const a = () => {
+    console.log(translateX, translateY);
+  };
+
+  // useEffect(() => {
+  //   console.log(translateX, translateY);
+  // }, [translateX, translateY]);
+
   const panGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextType
@@ -32,24 +40,28 @@ export const PanHandlerItem: FC<PanHandlerItem> = ({data}) => {
       context.translateY = translateY.value;
     },
     onActive: (event, context) => {
+      a();
       translateX.value = event.translationX + context.translateX;
       translateY.value = event.translationY + context.translateY;
     },
-    onEnd: () => {},
+    onEnd: () => {
+      // console.log(translateX, translateY);
+      // a();
+    },
   });
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      width: Math.abs(translateX.value),
-      height: Math.abs(translateY.value),
-      transform: [
-        {
-          translateX: translateX.value,
-        },
-        {
-          translateY: translateY.value,
-        },
-      ],
+      // width: Math.abs(translateX.value),
+      // height: Math.abs(translateY.value),
+      // transform: [
+      //   {
+      //     translateX: translateX.value,
+      //   },
+      //   {
+      //     translateY: translateY.value,
+      //   },
+      // ],
     };
   });
 
