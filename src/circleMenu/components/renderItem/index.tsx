@@ -1,11 +1,10 @@
 import React, {FC, useEffect} from 'react';
-import {Image, Pressable, View} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {Path} from 'react-native-svg';
 
 interface CircleMenuRenderItemProps {
   data: any;
@@ -18,8 +17,7 @@ interface CircleMenuRenderItemProps {
   durationArrayRevers?: number[];
   sourceIcon?: any;
   isMenuOpen?: boolean;
-  imageStyle?: any;
-  isSvg?: boolean;
+  iconStyle?: any;
   onPress: (value: any) => void;
 }
 
@@ -35,8 +33,7 @@ export const CircleMenuRenderItem: FC<CircleMenuRenderItemProps> = ({
   durationArrayRevers = [],
   sourceIcon,
   isMenuOpen = false,
-  isSvg = false,
-  imageStyle,
+  iconStyle,
   onPress,
 }) => {
   const onPressItem = () => {
@@ -87,13 +84,11 @@ export const CircleMenuRenderItem: FC<CircleMenuRenderItemProps> = ({
     };
   });
   return (
-    <View>
-      {isSvg ? (
-        <Path d={data.d} fill={data.fill} key={data.key} />
-      ) : (
+    <>
+      {data.isVisible && (
         <Pressable onPress={onPressItem}>
           <AnimatedImage
-            style={[imageStyle && imageStyle, style]}
+            style={[iconStyle && iconStyle, style]}
             source={
               sourceIcon
                 ? sourceIcon[data.index]
@@ -104,19 +99,6 @@ export const CircleMenuRenderItem: FC<CircleMenuRenderItemProps> = ({
           />
         </Pressable>
       )}
-      {/* <Path d={data.d} fill={data.fill} key={data.key} />
-      <Pressable onPress={onPressItem}>
-        <AnimatedImage
-          style={[imageStyle && imageStyle, style]}
-          source={
-            sourceIcon
-              ? sourceIcon[data.index]
-              : {
-                  uri: 'https://reactnative.dev/img/tiny_logo.png',
-                }
-          }
-        />
-      </Pressable> */}
-    </View>
+    </>
   );
 };

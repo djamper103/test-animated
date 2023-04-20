@@ -5,22 +5,33 @@ import {CenterIcon} from '../centerIcon';
 interface CircleMenuCenterComponentProps {
   text?: string;
   rotateDeg?: number;
+  isMenuOpen?: boolean;
+  isIconShow?: boolean;
   containerStyle?: any;
   textStyle?: any;
+  centerIconStyle?: any;
   onPress?: () => void;
 }
 
 export const CircleMenuCenterComponent: FC<CircleMenuCenterComponentProps> = ({
   text = 'What are you doing?',
   rotateDeg = 0,
+  isMenuOpen = false,
+  isIconShow = true,
   containerStyle,
   textStyle,
+  centerIconStyle,
   onPress,
 }) => {
   return (
     <View style={[styles.container, containerStyle && containerStyle]}>
-      {true ? (
-        <CenterIcon rotateDeg={rotateDeg} onPress={onPress} />
+      {isIconShow ? (
+        <CenterIcon
+          rotateDeg={rotateDeg}
+          isMenuOpen={isMenuOpen}
+          containerStyle={centerIconStyle}
+          onPress={onPress}
+        />
       ) : (
         <Text
           style={[
@@ -43,7 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   text: {
     color: 'black',
     fontSize: 20,
